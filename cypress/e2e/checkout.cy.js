@@ -9,7 +9,7 @@ const product = 'Sony vaio i7';
 const category = 'Laptops';
 const userData = {
   name: 'Jan',
-  country: 'Nowak',
+  country: 'Poland',
   city: 'Warsaw',
   creditCard: '1122334455667788',
   month: 'September',
@@ -30,7 +30,6 @@ describe('Checkout', () => {
     cy.get('td').should('contain.text', product);
 
     cy.contains('.btn', 'Place Order').click();
-    cy.wait('4000');
 
     homePage.typeName(userData.name);
     homePage.typeCountry(userData.country);
@@ -40,7 +39,8 @@ describe('Checkout', () => {
     homePage.typeYear(userData.year);
     homePage.clickOnPurchaseBtn();
 
-    cy.get('h2').should('contain.text', 'Thank you for your purchase!');
+    cy.get('.lead text-muted ').should('contain.text', `Card Number: ${userData.creditCard}`);
+    cy.get('.lead text-muted ').should('contain.text', `Name: ${userData.name}`);
     homePage.clickOnOkBtn();
   });
 });
